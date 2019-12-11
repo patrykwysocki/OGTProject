@@ -177,23 +177,12 @@ Dot::Dot()
 	m_rect.y = 100;
 	m_rect.w = 50;
 	m_rect.h = 50;
-<<<<<<< HEAD
-	isChaser ? gDotTexture.setColor(255, 0, 0) : gDotTexture.setColor(0, 255, 0);
-=======
-	mSpeed = 0.5f;
 	isChaser = false;
 	isChaser ? setColor(255, 0, 0) : setColor(0, 255, 0);
->>>>>>> 5182f8fc519988fe0e82584cbbadfdc41f569d3f
 }
 
 void Dot::update(double dt)
 {
-<<<<<<< HEAD
-=======
-	handleInput();
-	m_velocity *= dt;
-
->>>>>>> 5182f8fc519988fe0e82584cbbadfdc41f569d3f
 	//std::cout << dt << std::endl;
 
 
