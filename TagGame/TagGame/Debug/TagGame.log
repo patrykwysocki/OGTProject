@@ -1,2 +1,3 @@
-﻿  Client.cpp
-  TagGame.vcxproj -> C:\Users\wysoc\Desktop\New folder\OGTProject\TagGame\Debug\TagGame.exe
+﻿  Game.cpp
+C:\Users\Emmett\Documents\Carlow year 4\OGTProject\TagGame\TagGame\Game.cpp(73,39): warning C4244: '-=': conversion from 'float' to 'Uint32', possible loss of data
+  TagGame.vcxproj -> C:\Users\Emmett\Documents\Carlow year 4\OGTProject\TagGame\Debug\TagGame.exe

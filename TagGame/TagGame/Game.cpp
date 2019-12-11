@@ -92,16 +92,31 @@ void Game::processEvents()
 		{
 			m_quit = true;
 		}
+		
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_UP:
+			m_player.move(Vector2D(0, -3));
+			break;
+		case SDLK_DOWN:
+			m_player.move(Vector2D(0, 3));
+			break;
+		case SDLK_LEFT:
+			m_player.move(Vector2D(-3, 0));
+			break;
+		case SDLK_RIGHT:
+			m_player.move(Vector2D(3, 0));
+			break;
+		case SDLK_ESCAPE:
+			m_quit = true;
+			break;
+		default:
+			break;
+		}
+
 		if(event.type==SDL_KEYDOWN && event.key.repeat==0)
 		{
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_ESCAPE:
-				m_quit = true;
-				break;
-			default:
-				break;
-			}
+			
 		}
 	}
 }

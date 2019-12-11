@@ -177,17 +177,13 @@ Dot::Dot()
 	m_rect.y = 100;
 	m_rect.w = 50;
 	m_rect.h = 50;
-	mSpeed = 0.5f;
 	isChaser ? gDotTexture.setColor(255, 0, 0) : gDotTexture.setColor(0, 255, 0);
 }
 
 void Dot::update(double dt)
 {
-	m_velocity *= dt;
-
 	//std::cout << dt << std::endl;
 
-	m_position += m_velocity;
 
 	if ((m_position.getX() < 0) || (m_position.getX() + m_rect.w > SCREEN_WIDTH))
 	{
@@ -215,6 +211,11 @@ void Dot::initTexture(SDL_Renderer* renderer, std::string string)
 void Dot::setPosition(Vector2D t_pos)
 {
 	m_position = t_pos;
+}
+
+void Dot::move(Vector2D t_vec)
+{
+	m_position += t_vec;
 }
 
 Vector2D Dot::getPosition()
