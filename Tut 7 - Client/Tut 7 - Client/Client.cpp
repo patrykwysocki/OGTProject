@@ -14,7 +14,13 @@ bool Client::ProcessPacket(Packet _packettype)
 	}
 	case P_Player: //If packet is a player circle
 	{
-		//need to set up player circle
+		Dot* dot = new Dot();
+		if (!getDot(*dot))
+		{
+			delete dot;
+			return false;
+		}
+		delete dot;
 		break;
 	}
 	case P_Enemy: //If packet is an enemy player
@@ -24,7 +30,10 @@ bool Client::ProcessPacket(Packet _packettype)
 	}
 	case P_GameOver: //If packet is checking for ending game
 	{
-		//need to do a check for game ending
+		if (!getGameover())
+		{
+			return false;
+		}
 		break;
 	}
 	default: //If packet type is not accounted for
@@ -98,4 +107,8 @@ bool Client::CloseConnection()
 		return false;
 	}
 	return true;
+}
+void Client::setGame(Game * t_game)
+{
+	m_game = t_game; 
 }

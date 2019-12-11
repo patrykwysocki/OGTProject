@@ -81,3 +81,55 @@ bool Client::GetString(std::string & _string)
 	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
 	return true;//Return true if we were successful in retrieving the string
 }
+bool Client::sendGameOver(bool& t_gameOver/*pass the bool reference for gameover check*/)
+{
+	if (!SendPacketType(P_GameOver)) //Send packet type: Gameover, If sending packet type fails...
+		return false; //Return false: Failed to send string
+	int bufferlength = sizeof(bool); //Find string buffer length
+	if (!SendInt(bufferlength)) //Send length of string buffer, If sending buffer length fails...
+		return false; //Return false: Failed to send string buffer length
+	if (!sendall((char*)&t_gameOver, bufferlength)) //Try to send string buffer... If buffer fails to send,
+		return false; //Return false: Failed to send string buffer
+	return true; //Return true: string successfully sent
+}
+
+bool Client::sendDot(Dot &t_dot)
+{
+	if (!SendPacketType(P_Player)) //Send packet type: Chat Message, If sending packet type fails...
+		return false; //Return false: Failed to send string
+	int bufferlength = sizeof(bool); //Find string buffer length
+	if (!SendInt(bufferlength)) //Send length of string buffer, If sending buffer length fails...
+		return false; //Return false: Failed to send string buffer length
+	if (!sendall((char*)& t_dot, bufferlength)) //Try to send string buffer... If buffer fails to send,
+		return false; //Return false: Failed to send string buffer
+	return true; //Return true: string successfully sent
+}
+bool Client::getGameover()
+{
+	int bufferLength = sizeof(bool); //set size of the buffer to be size of circle object
+//RECEIVE BUFFER LENGTH
+	if (!GetInt(bufferLength))
+		return false;
+	bool* gameEnd = new bool();
+	//RECEIVE OBJECT
+	if (!recvall((char*)gameEnd, bufferLength)) //receive circle data giving in the temporary object and the length of buffer
+	{
+		return false;
+	}
+	return true;
+}
+bool Client::getDot(Dot& t_dot)
+{
+	int bufferLength = sizeof(Dot);
+	if (!GetInt(bufferLength))
+		return false;
+	Dot* temp = new Dot();//Find string buffer length
+	if (!recvall((char*)temp, bufferLength)) //receive circle data giving in the temporary object and the length of buffer
+	{
+		delete temp; //if fail delete newly created object and return false
+		return false;
+	}
+	t_dot = *temp; //if success assign temp circle data to the actual circle
+	delete temp; //delete new object and return true
+	return true;
+}

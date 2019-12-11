@@ -83,11 +83,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Dot.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="SendGetMethods.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
+    <ClInclude Include="Dot.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="LTexture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
