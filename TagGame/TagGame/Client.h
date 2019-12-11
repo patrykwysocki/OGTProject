@@ -8,14 +8,13 @@
 #include "Packet.h"
 #include "Dot.h"
 #include "Vector2D.h"
-class Game;
 
 class Client
 {
 public: //Public functions
 	Client(std::string IP, int PORT);
 	bool Connect();
-	void setGame(Game* t_game);
+
 	bool SendString(std::string & _string);
 	bool CloseConnection();
 	bool SendPlayerVector(std::string& t_vectorString);
@@ -41,10 +40,8 @@ private:
 	SOCKET Connection;//This client's connection to the server
 	SOCKADDR_IN addr; //Address to be binded to our Connection socket
 	int sizeofaddr = sizeof(addr); //Need sizeofaddr for the connect function
-	Game* m_game;
 	int m_playerId;
 	Vector2D m_enemy;
 };
 
 static Client * clientptr; //This client ptr is necessary so that the ClientThread method can access the Client instance/methods. Since the ClientThread method is static, this is the simplest workaround I could think of since there will only be one instance of the client.
-#include "Game.h"

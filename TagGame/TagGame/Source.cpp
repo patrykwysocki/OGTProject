@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Server.h"
 #include "Client.h"
-
+#include "Game.h"
 void startup();
 void runServer(); 
 void runClient();
@@ -57,7 +57,6 @@ void runClient()
 		std::cout << "Failed to connect to server..." << std::endl;
 		bool connected = false;
 	}
-	myClient->setGame(game);
 	game->run();
 
 	//if (connected)

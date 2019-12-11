@@ -7,6 +7,9 @@
 Game::Game(Client *t_client):
 	m_client(t_client)
 {
+	m_player = Dot();
+	m_player2 = Dot();
+	//m_player2.setPosition(Vector2D(-200, -200));
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -32,18 +35,22 @@ Game::Game(Client *t_client):
 	{
 		std::cout << "Failed to initialise IMG" << std::endl;
 	}
-	std::string playerPos = "X:" + std::to_string(m_player.getPosition().getX()) + ",Y:" + std::to_string(m_player.getPosition().getY());
-	m_client->getPlayerVector(playerPos);
+	if(m_client->Connect())
+	{ 
+		std::string playerPos = "X:" + std::to_string(m_player.getPosition().getX()) + ",Y:" + std::to_string(m_player.getPosition().getY());
+		m_client->getPlayerVector(playerPos);
+	}
 	if (m_client->getPlayerId() % 2 == 0)
 	{
-		m_player.initTexture(p_renderer, "Assets/circle.png");
-		m_player2.initTexture(p_renderer, "Assets/circle.png");
+		m_player.initTexture(p_renderer, "Assets/circle.png", false);
+		m_player2.initTexture(p_renderer, "Assets/circle.png", true);
 	}
 	else
 	{
-		m_player.initTexture(p_renderer, "Assets/circle.png");
-		m_player2.initTexture(p_renderer, "Assets/circle.png");
+		m_player.initTexture(p_renderer, "Assets/circle.png", true);
+		m_player2.initTexture(p_renderer, "Assets/circle.png", false);
 	}
+
 
 }
 

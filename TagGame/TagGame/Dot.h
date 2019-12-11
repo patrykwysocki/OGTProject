@@ -10,7 +10,7 @@ public:
 	Dot();
 	void update(double dt);
 	void render(SDL_Renderer* renderer);
-	void initTexture(SDL_Renderer* renderer, std::string string);
+	void initTexture(SDL_Renderer* renderer, std::string string, bool t_isChaser);
 	void setPosition(Vector2D t_pos);
 	Vector2D getPosition();
 	SDL_Rect getRect();
@@ -26,6 +26,8 @@ public:
 	{
 		return std::string("X: " + std::to_string(m_position.getX()) + ", " + "Y: " + std::to_string(m_position.getY()));
 	}
+	void setColor(Uint8 red, Uint8 green, Uint8 blue);
+	void handleInput();
 private:
 	Vector2D m_velocity;
 	Vector2D m_position;
@@ -35,4 +37,5 @@ private:
 	LTexture gDotTexture;
 	bool isLocalplayer;
 	bool isChaser;
+	const Uint8* state = SDL_GetKeyboardState(NULL);
 };

@@ -1,2 +1,15 @@
 ﻿  Client.cpp
+  Dot.cpp
+C:\Users\wysoc\Desktop\New folder\OGTProject\TagGame\TagGame\Dot.cpp(188,16): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Game.cpp
+C:\Users\wysoc\Desktop\New folder\OGTProject\TagGame\TagGame\Game.cpp(80,39): warning C4244: '-=': conversion from 'float' to 'Uint32', possible loss of data
+  SendGetMethodsClient.cpp
+  SendGetMethodsServer.cpp
+  Server.cpp
+  Source.cpp
+  SourceClient.cpp
+  SourceServer.cpp
+  Vector2D.h
+C:\Users\wysoc\Desktop\New folder\OGTProject\TagGame\TagGame\Vector2D.h(17,30): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   TagGame.vcxproj -> C:\Users\wysoc\Desktop\New folder\OGTProject\TagGame\Debug\TagGame.exe

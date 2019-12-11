@@ -39,11 +39,11 @@ public:
 	Vector2D operator-(const Vector2D & v2) const {
 		return Vector2D(m_x - v2.m_x, m_y - v2.m_y);
 	}
-	Vector2D operator-=(const Vector2D& v)
+	friend Vector2D& operator -= (Vector2D & v1,const Vector2D & v2)
 	{
-		m_x -= v.m_x;
-		m_y -= v.m_y;
-		return *this;
+		v1.m_x -= v2.m_x;
+		v1.m_y -= v2.m_y;
+		return v1;
 	}
 
 	Vector2D operator/(float scalar) {

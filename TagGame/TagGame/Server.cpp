@@ -76,7 +76,24 @@ bool Server::ProcessPacket(int ID, Packet _packettype)
 		std::cout << "Processed chat message packet from user ID: " << ID << std::endl;
 		break;
 	}
+	case P_PlayerData:
+	{
+		std::string Vector;
+		if (!GetPlayerVector(ID, Vector))
+			return false;
 
+		for (int i = 0; i < TotalConnections; i++)
+		{
+			if (i == ID) //If connection is the user who sent the message...
+				continue;//Skip to the next user since there is no purpose in sending the message back to the user who sent it.
+			if (!SendPlayerVector(i, Vector)) //Send message to connection at index i, if message fails to be sent...
+			{
+				std::cout << "Failed to send Data from client ID: " << ID << " to client ID: " << i << std::endl;
+			}
+		}
+		std::cout << "Processed Data packet from user ID: " << ID << std::endl;
+		break;
+	}
 	default: //If packet type is not accounted for
 	{
 		std::cout << "Unrecognized packet: " << _packettype << std::endl; //Display that packet was not found

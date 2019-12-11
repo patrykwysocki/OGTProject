@@ -3,8 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Dot.h"
-
-class Client;
+#include "Client.h"
 class Game
 {
 public:
@@ -25,4 +24,3 @@ private:
 	Client* m_client;
 	SDL_Texture* texture;
 }; 
-#include "Client.h"
