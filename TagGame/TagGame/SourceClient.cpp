@@ -16,7 +16,6 @@ int main111(int argc, char* argv[])
 		system("pause");
 		return 1;
 	}
-	myClient->setGame(game);
 	game->run();
 	return 0;
 }

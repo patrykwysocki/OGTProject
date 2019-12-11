@@ -172,28 +172,41 @@ const int SCREEN_HEIGHT = 720;
 
 Dot::Dot()
 {
-	m_position = Vector2D(100.0f, 100.0f);
+	m_position = Vector2D(500.0f, 500.0f);
 	m_rect.x = 100;
 	m_rect.y = 100;
 	m_rect.w = 50;
 	m_rect.h = 50;
+<<<<<<< HEAD
 	isChaser ? gDotTexture.setColor(255, 0, 0) : gDotTexture.setColor(0, 255, 0);
+=======
+	mSpeed = 0.5f;
+	isChaser = false;
+	isChaser ? setColor(255, 0, 0) : setColor(0, 255, 0);
+>>>>>>> 5182f8fc519988fe0e82584cbbadfdc41f569d3f
 }
 
 void Dot::update(double dt)
 {
+<<<<<<< HEAD
+=======
+	handleInput();
+	m_velocity *= dt;
+
+>>>>>>> 5182f8fc519988fe0e82584cbbadfdc41f569d3f
 	//std::cout << dt << std::endl;
 
 
 	if ((m_position.getX() < 0) || (m_position.getX() + m_rect.w > SCREEN_WIDTH))
 	{
 		//Move back
-		//m_position.getX() -= m_velocity.getX();
+		m_position.setX(0);
+	
 	}
 	if ((m_position.getY() < 0) || (m_position.getY() + m_rect.h > SCREEN_HEIGHT))
 	{
 		//Move back
-		//m_position.getY() -= m_velocity.getY();
+		m_position.setY(0);
 	}
 }
 
@@ -204,9 +217,10 @@ void Dot::render(SDL_Renderer* renderer)
 	SDL_RenderCopy(renderer, m_texture, NULL, &m_rect);
 }
 
-void Dot::initTexture(SDL_Renderer* renderer, std::string string)
+void Dot::initTexture(SDL_Renderer* renderer, std::string string,bool t_isChaser)
 {
 	m_texture = loadTexture(string, renderer);
+	isChaser ? setColor(255, 0, 0) :setColor(0, 255, 0);
 }
 void Dot::setPosition(Vector2D t_pos)
 {
@@ -253,4 +267,29 @@ SDL_Texture* Dot::loadTexture(std::string path, SDL_Renderer* renderer)
 	}
 
 	return newTexture;
+}
+void Dot::setColor(Uint8 red, Uint8 green, Uint8 blue)
+{
+	//Modulate texture rgb
+	SDL_SetTextureColorMod(m_texture, red, green, blue);
+}
+
+void Dot::handleInput()
+{
+	if (state[SDL_SCANCODE_RIGHT]) 
+	{
+		m_position += Vector2D(5,0);
+	}
+	if (state[SDL_SCANCODE_LEFT])
+	{
+		m_position += Vector2D(-5, 0);
+	}
+	if (state[SDL_SCANCODE_UP])
+	{
+		m_position += Vector2D(0, -5);
+	}
+	if (state[SDL_SCANCODE_DOWN])
+	{
+		m_position += Vector2D(0, 5);
+	}
 }

@@ -18,7 +18,7 @@ bool Client::ProcessPacket(Packet _packettype)
 		std::string valTkn = ":",
 			variableTkn = ",", 
 			current = "";
-		int start = 100, end = 100;
+		int start = 0, end = 0;
 
 		std::string v;
 		if (!getPlayerVector(v))
@@ -123,10 +123,6 @@ bool Client::CloseConnection()
 		return false;
 	}
 	return true;
-}
-void Client::setGame(Game * t_game)
-{
-	m_game = t_game; 
 }
 Vector2D Client::getEnemy()
 {

@@ -29,6 +29,10 @@ private:
 
 	static void ClientHandlerThread(int ID);
 
+	bool sendPlayerID(int t_id);
+
+	bool SendPlayerVector(int t_id, std::string& _v);
+	bool GetPlayerVector(int t_id, std::string& _v);
 private:
 	SOCKET Connections[100];
 	int TotalConnections = 0;
@@ -39,3 +43,4 @@ private:
 };
 
 static Server * serverptr; //Serverptr is necessary so the static ClientHandler method can access the server instance/functions.
+#pragma once
