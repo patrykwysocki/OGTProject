@@ -1,2 +1,13 @@
-﻿  Source.cpp
-  Tut 7 - Client.vcxproj -> C:\Users\patrykwysocki\Desktop\OGTProject\Tut 7 - Client\Debug\Tut 7 - Client.exe
+﻿  Client.cpp
+  Dot.cpp
+C:\Users\c00220950\Desktop\Online Gaming Technology\OGTProject\Tut 7 - Client\Tut 7 - Client\LTexture.h(3,10): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  Game.cpp
+C:\Users\c00220950\Desktop\Online Gaming Technology\OGTProject\Tut 7 - Client\Tut 7 - Client\LTexture.h(3,10): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  LTexture.cpp
+C:\Users\c00220950\Desktop\Online Gaming Technology\OGTProject\Tut 7 - Client\Tut 7 - Client\Game.h(3,10): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  SendGetMethods.cpp
+C:\Users\c00220950\Desktop\Online Gaming Technology\OGTProject\Tut 7 - Client\Tut 7 - Client\LTexture.h(3,10): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  Source.cpp
+C:\Users\c00220950\Desktop\Online Gaming Technology\OGTProject\Tut 7 - Client\Tut 7 - Client\LTexture.h(3,10): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  Generating Code...
+C:\Users\c00220950\Desktop\Online Gaming Technology\OGTProject\Tut 7 - Client\Tut 7 - Client\LTexture.h(3,10): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory

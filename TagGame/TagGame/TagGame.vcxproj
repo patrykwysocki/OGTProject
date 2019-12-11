@@ -128,27 +128,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="ClientIni.cpp" />
-    <ClCompile Include="FileTransferData.cpp" />
-    <ClCompile Include="Packet.cpp" />
-    <ClCompile Include="PacketManager.cpp" />
-    <ClCompile Include="PacketStructs.cpp" />
-    <ClCompile Include="ProcessPacket.cpp" />
+    <ClCompile Include="Dot.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="SendGetMethodsClient.cpp" />
     <ClCompile Include="SendGetMethodsServer.cpp" />
     <ClCompile Include="Server.cpp" />
-    <ClCompile Include="ServerIni.cpp" />
-    <ClCompile Include="Source-Client.cpp" />
-    <ClCompile Include="Source-server.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SourceClient.cpp" />
+    <ClCompile Include="SourceServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
-    <ClInclude Include="FileTransferData.h" />
+    <ClInclude Include="Dot.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="LTexture.h" />
     <ClInclude Include="Packet.h" />
-    <ClInclude Include="PacketManager.h" />
-    <ClInclude Include="PacketStructs.h" />
-    <ClInclude Include="PacketType.h" />
     <ClInclude Include="Server.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

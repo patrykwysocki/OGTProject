@@ -1,1 +1,2 @@
-﻿  Tut 7 - Server.vcxproj -> C:\Users\patrykwysocki\Desktop\OGTProject\Tut 7 - Server\Debug\Tut 7 - Server.exe
+﻿Server.obj : error LNK2019: unresolved external symbol __imp__MessageBoxA@16 referenced in function "public: __thiscall Server::Server(int,bool)" (??0Server@@QAE@H_N@Z)
+C:\Users\c00220950\Desktop\Online Gaming Technology\OGTProject\Tut 7 - Server\Debug\Tut 7 - Server.exe : fatal error LNK1120: 1 unresolved externals
