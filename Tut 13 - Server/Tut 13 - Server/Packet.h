@@ -2,6 +2,7 @@
 #include "PacketType.h"
 #include <cstdint>
 #include <vector>
+#include <string>
 #include <memory>
 class Packet
 {
@@ -18,5 +19,6 @@ public:
 	void Append(const Packet & p);
 	void Append(const std::string & str);
 	void Append(const char * buffer, const int size); //Will use existing allocated buffer and create packet from it
+
 	std::vector<int8_t> m_buffer; //Packet Buffer	
 };
