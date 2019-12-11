@@ -7,6 +7,7 @@
 #include <iostream> //For std::cout, std::endl, std::cin.getline
 #include "Packet.h"
 #include "Dot.h"
+#include "Vector2D.h"
 class Game;
 
 class Client
@@ -16,9 +17,11 @@ public: //Public functions
 	bool Connect();
 	void setGame(Game* t_game);
 	bool SendString(std::string & _string);
-	bool sendDot(Dot & t_dot); //send dot to server
-	bool sendGameOver(bool & t_gameOver/*pass the bool reference for gameover check*/); //send end game to server check
 	bool CloseConnection();
+	bool SendPlayerVector(std::string& t_vectorString);
+	bool getPlayerVector(std::string& t_vectorString);
+	Vector2D getEnemy();
+	int getPlayerId();
 private: //Private functions
 	bool ProcessPacket(Packet _packettype);
 	static void ClientThread();
@@ -33,14 +36,14 @@ private: //Private functions
 	bool GetInt(int & _int);
 	bool GetPacketType(Packet & _packettype);
 	bool GetString(std::string & _string);
-	bool getGameover();
-	bool getDot(Dot& t_dot);
 
 private:
 	SOCKET Connection;//This client's connection to the server
 	SOCKADDR_IN addr; //Address to be binded to our Connection socket
 	int sizeofaddr = sizeof(addr); //Need sizeofaddr for the connect function
 	Game* m_game;
+	int m_playerId;
+	Vector2D m_enemy;
 };
 
 static Client * clientptr; //This client ptr is necessary so that the ClientThread method can access the Client instance/methods. Since the ClientThread method is static, this is the simplest workaround I could think of since there will only be one instance of the client.

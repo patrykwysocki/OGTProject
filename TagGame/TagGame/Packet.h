@@ -4,7 +4,6 @@ enum Packet
 {
 	P_ChatMessage,
 	P_Test,
-	P_Player,
-	P_Enemy,
-	P_GameOver
+	P_PlayerData,
+	P_NumberOfPlayers
 };

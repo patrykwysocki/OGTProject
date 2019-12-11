@@ -32,12 +32,18 @@ Game::Game(Client *t_client):
 	{
 		std::cout << "Failed to initialise IMG" << std::endl;
 	}
-
-	m_player.Init(p_renderer);
-	m_player2.makeChaser();
-	m_player.SetPosition(500,500);
-	m_player2.Init(p_renderer);
-	m_player2.SetPosition(800, 500);
+	std::string playerPos = "X:" + std::to_string(m_player.getPosition().getX()) + ",Y:" + std::to_string(m_player.getPosition().getY());
+	m_client->getPlayerVector(playerPos);
+	if (m_client->getPlayerId() % 2 == 0)
+	{
+		m_player.initTexture(p_renderer, "Assets/circle.png");
+		m_player2.initTexture(p_renderer, "Assets/circle.png");
+	}
+	else
+	{
+		m_player.initTexture(p_renderer, "Assets/circle.png");
+		m_player2.initTexture(p_renderer, "Assets/circle.png");
+	}
 
 }
 
@@ -86,8 +92,6 @@ void Game::processEvents()
 		{
 			m_quit = true;
 		}
-		m_player.handleEvent(event);
-		m_player2.handleEvent(event);
 		if(event.type==SDL_KEYDOWN && event.key.repeat==0)
 		{
 			switch (event.key.keysym.sym)
@@ -109,12 +113,9 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
-	m_player.move(720, 1080);
-	m_player2.move(720, 1080);
-	if (m_player.Checkcollision(m_player2.GetCenterX(), m_player2.GetCenterY()))
-	{
-		std::cout << " collision" << std::endl;
-	}
+	m_player.update(dt);
+	m_player2.setPosition(m_client->getEnemy());
+	//collision detection
 }
 
 /// <summary>

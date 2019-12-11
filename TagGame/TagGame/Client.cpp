@@ -12,28 +12,44 @@ bool Client::ProcessPacket(Packet _packettype)
 		std::cout << Message << std::endl; //Display the message to the user
 		break;
 	}
-	case P_Player: //If packet is a player circle
+	case P_PlayerData:
 	{
-		Dot* dot = new Dot();
-		if (!getDot(*dot))
-		{
-			delete dot;
+		//Tokens
+		std::string valTkn = ":",
+			variableTkn = ",", 
+			current = "";
+		int start = 100, end = 100;
+
+		std::string v;
+		if (!getPlayerVector(v))
 			return false;
+
+		//Parsed data
+		float x = 0, y = 0;
+
+		for (int i = 0; i < 2; i++)
+		{
+			start = v.find(valTkn);
+			end = v.find(variableTkn);
+			current = v.substr(start + 1, end - 1);
+			v = v.substr(end + variableTkn.length());
+			if (i == 0)
+				x = stof(current);
+			else
+				y = stof(current);
 		}
-		delete dot;
+		m_enemy = Vector2D(x, y);
+
+		//std::cout << "Recieved update" << std::endl;
+
 		break;
 	}
-	case P_Enemy: //If packet is an enemy player
+	case P_NumberOfPlayers:
 	{
-		//need to set up enemy player circle
-		break;
-	}
-	case P_GameOver: //If packet is checking for ending game
-	{
-		if (!getGameover())
-		{
-			return false;
-		}
+		std::string Message; //string to store our message we received
+		if (!GetString(Message)) //Get the chat message and store it in variable: Message
+			return false; //If we do not properly get the chat message, return false
+		m_playerId= std::stoi(Message);
 		break;
 	}
 	default: //If packet type is not accounted for
@@ -111,4 +127,12 @@ bool Client::CloseConnection()
 void Client::setGame(Game * t_game)
 {
 	m_game = t_game; 
+}
+Vector2D Client::getEnemy()
+{
+	return m_enemy;
+}
+int Client::getPlayerId()
+{
+	return m_playerId;
 }

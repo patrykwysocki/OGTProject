@@ -23,5 +23,6 @@ private:
 	Dot m_player2;
 	bool m_quit = false;
 	Client* m_client;
+	SDL_Texture* texture;
 }; 
 #include "Client.h"
