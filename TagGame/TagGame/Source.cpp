@@ -52,11 +52,6 @@ void runClient()
 
 	Client* myClient = new Client(ip, 1111); //Create client to localhost ("127.0.0.1") on port 1111
 	Game* game = new Game(myClient);
-	if (!myClient->Connect()) //If client fails to connect...
-	{
-		std::cout << "Failed to connect to server..." << std::endl;
-		bool connected = false;
-	}
 	game->run();
 
 	//if (connected)
