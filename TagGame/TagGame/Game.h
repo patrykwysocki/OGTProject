@@ -18,6 +18,7 @@ private:
 
 	SDL_Window* p_window;
 	SDL_Renderer* p_renderer;
+	SDL_Surface* p_screenSurface;
 	Dot m_player;
 	Dot m_player2;
 	bool m_quit = false;

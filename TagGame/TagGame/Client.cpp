@@ -85,6 +85,7 @@ Client::Client(std::string IP, int PORT)
 	//Winsock Startup
 	WSAData wsaData;
 	WORD DllVersion = MAKEWORD(2, 1);
+	m_enemy= Vector2D(-200, -200);
 	if (WSAStartup(DllVersion, &wsaData) != 0)
 	{
 		MessageBoxA(NULL, "Winsock startup failed", "Error", MB_OK | MB_ICONERROR);

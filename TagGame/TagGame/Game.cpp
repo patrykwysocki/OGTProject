@@ -9,7 +9,7 @@ Game::Game(Client *t_client):
 {
 	m_player = Dot();
 	m_player2 = Dot();
-	//m_player2.setPosition(Vector2D(-200, -200));
+	m_player2.setPosition(Vector2D(-200, -200));
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -22,34 +22,43 @@ Game::Game(Client *t_client):
 	{
 		std::cout << "Error: Could not create window" << std::endl;
 	}
-
-	// Create a Renderer
-	p_renderer = SDL_CreateRenderer(p_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (NULL == p_renderer)
-	{
-		std::cout << "Error: Could not create renderer" << std::endl;
-	}
-
-	// Initialise SDL_IMG
-	if (IMG_Init(IMG_INIT_PNG) == 0)
-	{
-		std::cout << "Failed to initialise IMG" << std::endl;
-	}
-	if(m_client->Connect())
-	{ 
-		std::string playerPos = "X:" + std::to_string(m_player.getPosition().getX()) + ",Y:" + std::to_string(m_player.getPosition().getY());
-		m_client->getPlayerVector(playerPos);
-	}
-	if (m_client->getPlayerId() % 2 == 0)
-	{
-		m_player.initTexture(p_renderer, "Assets/circle.png", false);
-		m_player2.initTexture(p_renderer, "Assets/circle.png", true);
-	}
 	else
 	{
-		m_player.initTexture(p_renderer, "Assets/circle.png", true);
-		m_player2.initTexture(p_renderer, "Assets/circle.png", false);
+		// Create a Renderer
+		p_renderer = SDL_CreateRenderer(p_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		if (NULL == p_renderer)
+		{
+			std::cout << "Error: Could not create renderer" << std::endl;
+		}
+		p_screenSurface = SDL_GetWindowSurface(p_window);
+
+		if (!m_client->Connect())
+		{
+			std::cout << "Failed to connect to server..." << std::endl;
+		}
+		else
+		{
+			std::string playerPos = "X:" + std::to_string(m_player.getPosition().m_x) + ",Y:" + std::to_string(m_player.getPosition().m_y);
+			std::cout << playerPos << std::endl;
+			m_client->getPlayerVector(playerPos);
+		}
+		// Initialise SDL_IMG
+		if (IMG_Init(IMG_INIT_PNG) == 0)
+		{
+			std::cout << "Failed to initialise IMG" << std::endl;
+		}
+		if (m_client->getPlayerId() % 2 == 0)
+		{
+			m_player.initTexture(p_renderer, "Assets/circle.png", false);
+			m_player2.initTexture(p_renderer, "Assets/circle.png", true);
+		}
+		else
+		{
+			m_player.initTexture(p_renderer, "Assets/circle.png", true);
+			m_player2.initTexture(p_renderer, "Assets/circle.png", false);
+		}
 	}
+	
 
 
 }
@@ -135,6 +144,11 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
+	if (m_player.moved)
+	{
+		std::string playerPos = "X:" + std::to_string(m_player.getPosition().m_x) + ",Y:" + std::to_string(m_player.getPosition().m_y);
+		m_client->SendPlayerVector(playerPos);
+	}
 	m_player.update(dt);
 	m_player2.setPosition(m_client->getEnemy());
 	//collision detection
@@ -146,10 +160,12 @@ void Game::update(float dt)
 /// </summary>
 void Game::render()
 {
-	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255);
+	//SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255);
+
 	SDL_RenderClear(p_renderer);
-	m_player.render(p_renderer);
 	m_player2.render(p_renderer);
+	m_player.render(p_renderer);
+
 	SDL_RenderPresent(p_renderer);
 
 }

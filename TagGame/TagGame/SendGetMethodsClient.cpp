@@ -1,6 +1,6 @@
 #include "Client.h"
 
-bool Client::recvall(char * data, int totalbytes)
+bool Client::recvall(char* data, int totalbytes)
 {
 	int bytesreceived = 0; //Holds the total bytes received
 	while (bytesreceived < totalbytes) //While we still have more bytes to recv
@@ -13,7 +13,7 @@ bool Client::recvall(char * data, int totalbytes)
 	return true; //Success!
 }
 
-bool Client::sendall(char * data, int totalbytes)
+bool Client::sendall(char* data, int totalbytes)
 {
 	int bytessent = 0; //Holds the total bytes sent
 	while (bytessent < totalbytes) //While we still have more bytes to send
@@ -32,55 +32,25 @@ bool Client::SendInt(int _int)
 	return true; //Return true: int successfully sent
 }
 
-bool Client::GetInt(int & _int)
+bool Client::GetInt(int& _int)
 {
 	if (!recvall((char*)&_int, sizeof(int))) //Try to receive int... If int fails to be recv'd
 		return false; //Return false: Int not successfully received
 	return true;//Return true if we were successful in retrieving the int
 }
 
-bool Client::SendPacketType(Packet _packettype)
+bool Client::SendPlayerVector(std::string& t_vectorString)
 {
-	if (!sendall((char*)&_packettype, sizeof(Packet))) //Try to send packet type... If packet type fails to send
-		return false; //Return false: packet type not successfully sent
-	return true; //Return true: packet type successfully sent
-}
-
-bool Client::GetPacketType(Packet & _packettype)
-{
-	if (!recvall((char*)&_packettype, sizeof(Packet))) //Try to receive packet type... If packet type fails to be recv'd
-		return false; //Return false: packet type not successfully received
-	return true;//Return true if we were successful in retrieving the packet type
-}
-
-bool Client::SendString(std::string & _string)
-{
-	if (!SendPacketType(P_ChatMessage)) //Send packet type: Chat Message, If sending packet type fails...
-		return false; //Return false: Failed to send string
-	int bufferlength = _string.size(); //Find string buffer length
+	if (!SendPacketType(P_PlayerData))
+		return false;
+	int bufferlength = t_vectorString.size(); //Find string buffer length
 	if (!SendInt(bufferlength)) //Send length of string buffer, If sending buffer length fails...
 		return false; //Return false: Failed to send string buffer length
-	if (!sendall((char*)_string.c_str(), bufferlength)) //Try to send string buffer... If buffer fails to send,
+	if (!sendall((char*)t_vectorString.c_str(), bufferlength)) //Try to send string buffer... If buffer fails to send,
 		return false; //Return false: Failed to send string buffer
 	return true; //Return true: string successfully sent
 }
 
-bool Client::GetString(std::string & _string)
-{
-	int bufferlength; //Holds length of the message
-	if (!GetInt(bufferlength)) //Get length of buffer and store it in variable: bufferlength
-		return false; //If get int fails, return false
-	char * buffer = new char[bufferlength + 1]; //Allocate buffer
-	buffer[bufferlength] = '\0'; //Set last character of buffer to be a null terminator so we aren't printing memory that we shouldn't be looking at
-	if (!recvall(buffer, bufferlength)) //receive message and store the message in buffer array. If buffer fails to be received...
-	{
-		delete[] buffer; //delete buffer to prevent memory leak
-		return false; //return false: Fails to receive string buffer
-	}
-	_string = buffer; //set string to received buffer message
-	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
-	return true;//Return true if we were successful in retrieving the string
-}
 bool Client::getPlayerVector(std::string& t_vectorString)
 {
 	int bufferlength; //Holds length of the message
@@ -97,14 +67,46 @@ bool Client::getPlayerVector(std::string& t_vectorString)
 	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
 	return true;//Return true if we were successful in retrieving the string
 }
-bool Client::SendPlayerVector(std::string& t_vectorString)
+
+bool Client::SendPacketType(Packet _packettype)
 {
-	if (!SendPacketType(P_PlayerData)) //Send packet type: Chat Message, If sending packet type fails...
+	if (!sendall((char*)&_packettype, sizeof(Packet))) //Try to send packet type... If packet type fails to send
+		return false; //Return false: packet type not successfully sent
+	return true; //Return true: packet type successfully sent
+}
+
+bool Client::GetPacketType(Packet& _packettype)
+{
+	if (!recvall((char*)&_packettype, sizeof(Packet))) //Try to receive packet type... If packet type fails to be recv'd
+		return false; //Return false: packet type not successfully received
+	return true;//Return true if we were successful in retrieving the packet type
+}
+
+bool Client::SendString(std::string& _string)
+{
+	if (!SendPacketType(P_ChatMessage)) //Send packet type: Chat Message, If sending packet type fails...
 		return false; //Return false: Failed to send string
-	int bufferlength = t_vectorString.size(); //Find string buffer length
+	int bufferlength = _string.size(); //Find string buffer length
 	if (!SendInt(bufferlength)) //Send length of string buffer, If sending buffer length fails...
 		return false; //Return false: Failed to send string buffer length
-	if (!sendall((char*)t_vectorString.c_str(), bufferlength)) //Try to send string buffer... If buffer fails to send,
+	if (!sendall((char*)_string.c_str(), bufferlength)) //Try to send string buffer... If buffer fails to send,
 		return false; //Return false: Failed to send string buffer
 	return true; //Return true: string successfully sent
+}
+
+bool Client::GetString(std::string& _string)
+{
+	int bufferlength; //Holds length of the message
+	if (!GetInt(bufferlength)) //Get length of buffer and store it in variable: bufferlength
+		return false; //If get int fails, return false
+	char* buffer = new char[bufferlength + 1]; //Allocate buffer
+	buffer[bufferlength] = '\0'; //Set last character of buffer to be a null terminator so we aren't printing memory that we shouldn't be looking at
+	if (!recvall(buffer, bufferlength)) //receive message and store the message in buffer array. If buffer fails to be received...
+	{
+		delete[] buffer; //delete buffer to prevent memory leak
+		return false; //return false: Fails to receive string buffer
+	}
+	_string = buffer; //set string to received buffer message
+	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
+	return true;//Return true if we were successful in retrieving the string
 }

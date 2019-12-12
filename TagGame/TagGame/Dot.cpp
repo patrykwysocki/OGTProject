@@ -186,23 +186,27 @@ void Dot::update(double dt)
 	//std::cout << dt << std::endl;
 
 
-	if ((m_position.getX() < 0) || (m_position.getX() + m_rect.w > SCREEN_WIDTH))
+	if ((m_position.m_x < 0) || (m_position.m_x + m_rect.w > SCREEN_WIDTH))
 	{
 		//Move back
 		m_position.setX(0);
 	
 	}
-	if ((m_position.getY() < 0) || (m_position.getY() + m_rect.h > SCREEN_HEIGHT))
+	if ((m_position.m_y < 0) || (m_position.m_y + m_rect.h > SCREEN_HEIGHT))
 	{
 		//Move back
 		m_position.setY(0);
 	}
+	//if (m_position != Vector2D(0, 0))
+	//{
+
+	//}
 }
 
 void Dot::render(SDL_Renderer* renderer)
 {
-	m_rect.x = (int)m_position.getX();
-	m_rect.y = (int)m_position.getY();
+	m_rect.x = (int)m_position.m_x;
+	m_rect.y = (int)m_position.m_y;
 	SDL_RenderCopy(renderer, m_texture, NULL, &m_rect);
 }
 
@@ -261,24 +265,4 @@ void Dot::setColor(Uint8 red, Uint8 green, Uint8 blue)
 {
 	//Modulate texture rgb
 	SDL_SetTextureColorMod(m_texture, red, green, blue);
-}
-
-void Dot::handleInput()
-{
-	if (state[SDL_SCANCODE_RIGHT]) 
-	{
-		m_position += Vector2D(5,0);
-	}
-	if (state[SDL_SCANCODE_LEFT])
-	{
-		m_position += Vector2D(-5, 0);
-	}
-	if (state[SDL_SCANCODE_UP])
-	{
-		m_position += Vector2D(0, -5);
-	}
-	if (state[SDL_SCANCODE_DOWN])
-	{
-		m_position += Vector2D(0, 5);
-	}
 }
