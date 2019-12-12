@@ -225,6 +225,15 @@ void Dot::move(Vector2D t_vec)
 	m_position += t_vec;
 }
 
+bool Dot::checkCollision(Vector2D pos, int otherRadius)
+{
+	if ((m_position - pos).length() < radius + otherRadius)
+	{
+		return true;
+	}
+	return false;
+}
+
 Vector2D Dot::getPosition()
 {
 	return m_position;
