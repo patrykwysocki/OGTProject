@@ -181,8 +181,22 @@ Dot::Dot()
 
 void Dot::update(double dt)
 {
-	//std::cout << dt << std::endl;
-
+	if (up)
+	{
+		move(Vector2D(0, -3));
+	}
+	if (down)
+	{
+		move(Vector2D(0, 3));
+	}
+	if (left)
+	{
+		move(Vector2D(-3, 0));
+	}
+	if (right)
+	{
+		move(Vector2D(3, 0));
+	}
 
 	if ((m_position.m_x < 0) || (m_position.m_x + m_rect.w > SCREEN_WIDTH))
 	{
@@ -229,6 +243,26 @@ bool Dot::checkCollision(Vector2D pos, int otherRadius)
 		return true;
 	}
 	return false;
+}
+
+void Dot::moveUp(bool val)
+{
+	up = val;
+}
+
+void Dot::moveDown(bool val)
+{
+	down = val;
+}
+
+void Dot::moveLeft(bool val)
+{
+	left = val;
+}
+
+void Dot::moveRight(bool val)
+{
+	right = val;
 }
 
 Vector2D Dot::getPosition()

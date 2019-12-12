@@ -14,6 +14,10 @@ public:
 	void setPosition(Vector2D t_pos);
 	void move(Vector2D t_vec);
 	bool checkCollision(Vector2D pos, int otherRadius);
+	void moveUp(bool val);
+	void moveDown(bool val);
+	void moveLeft(bool val);
+	void moveRight(bool val);
 	Vector2D getPosition();
 	SDL_Rect getRect();
 	SDL_Texture* loadTexture(std::string path, SDL_Renderer* renderer);
@@ -40,4 +44,9 @@ private:
 	bool isChaser;
 	int radius = 50;
 	const Uint8* state = SDL_GetKeyboardState(NULL);
+
+	bool up = false;
+	bool down = false;
+	bool left = false;
+	bool right = false;
 };
