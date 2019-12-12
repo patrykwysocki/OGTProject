@@ -49,13 +49,13 @@ Game::Game(Client *t_client):
 		}
 		if (m_client->getPlayerId() % 2 == 0)
 		{
-			m_player.initTexture(p_renderer, "Assets/circle.png", false);
-			m_player2.initTexture(p_renderer, "Assets/circle.png", true);
+			m_player.initTexture(p_renderer, "Assets/redcircle.png", false);
+			m_player2.initTexture(p_renderer, "Assets/bluecircle.png", true);
 		}
 		else
 		{
-			m_player.initTexture(p_renderer, "Assets/circle.png", true);
-			m_player2.initTexture(p_renderer, "Assets/circle.png", false);
+			m_player.initTexture(p_renderer, "Assets/bluecircle.png", true);
+			m_player2.initTexture(p_renderer, "Assets/redcircle.png", false);
 		}
 	}
 	
@@ -144,11 +144,9 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
-	if (m_player.moved)
-	{
-		std::string playerPos = "X:" + std::to_string(m_player.getPosition().m_x) + ",Y:" + std::to_string(m_player.getPosition().m_y);
-		m_client->SendPlayerVector(playerPos);
-	}
+
+	std::string playerPos = "X:" + std::to_string(m_player.getPosition().m_x) + ",Y:" + std::to_string(m_player.getPosition().m_y);
+	m_client->SendPlayerVector(playerPos);
 	m_player.update(dt);
 	m_player2.setPosition(m_client->getEnemy());
 	//collision detection
@@ -163,8 +161,9 @@ void Game::render()
 	//SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255);
 
 	SDL_RenderClear(p_renderer);
-	m_player2.render(p_renderer);
 	m_player.render(p_renderer);
+	m_player2.render(p_renderer);
+
 
 	SDL_RenderPresent(p_renderer);
 

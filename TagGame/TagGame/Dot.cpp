@@ -177,8 +177,6 @@ Dot::Dot()
 	m_rect.y = 100;
 	m_rect.w = 50;
 	m_rect.h = 50;
-	isChaser = false;
-	isChaser ? setColor(255, 0, 0) : setColor(0, 255, 0);
 }
 
 void Dot::update(double dt)
@@ -213,7 +211,6 @@ void Dot::render(SDL_Renderer* renderer)
 void Dot::initTexture(SDL_Renderer* renderer, std::string string,bool t_isChaser)
 {
 	m_texture = loadTexture(string, renderer);
-	isChaser ? setColor(255, 0, 0) :setColor(0, 255, 0);
 }
 void Dot::setPosition(Vector2D t_pos)
 {
