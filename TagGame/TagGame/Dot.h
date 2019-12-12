@@ -23,6 +23,8 @@ public:
 		isChaser = !isChaser;
 		isChaser ? gDotTexture.setColor(255, 0, 0) : gDotTexture.setColor(0, 255, 0);
 	}
+	bool getIschaser() { return isChaser; };
+	int getRadius() { return radius; };
 	bool GetLocal() { return isLocalplayer; };
 	std::string  GetPosAsString()
 	{
