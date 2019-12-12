@@ -70,6 +70,35 @@ bool Server::GetPlayerVector(int t_id, std::string& _v)
 	return true;//Return true if we were successful in retrieving the string
 }
 
+bool Server::SendPlayerCollision(int t_id, std::string& _v)
+{
+	if (!SendPacketType(t_id, P_Collision)) //Send packet type: Chat Message, If sending packet type fails...
+		return false; //Return false: Failed to send string
+	int bufferlength = _v.size(); //Find string buffer length
+	if (!SendInt(t_id, bufferlength)) //Send length of string buffer, If sending buffer length fails...
+		return false; //Return false: Failed to send string buffer length
+	if (!sendall(t_id, (char*)_v.c_str(), bufferlength)) //Try to send string buffer... If buffer fails to send,
+		return false; //Return false: Failed to send string buffer
+	return true; //Return true: string successfully sent
+}
+
+bool Server::GetPlayerCollision(int t_id, std::string& _v)
+{
+	int bufferlength; //Holds length of the message
+	if (!GetInt(t_id, bufferlength)) //Get length of buffer and store it in variable: bufferlength
+		return false; //If get int fails, return false
+	char* buffer = new char[bufferlength + 1]; //Allocate buffer
+	buffer[bufferlength] = '\0'; //Set last character of buffer to be a null terminator so we aren't printing memory that we shouldn't be looking at
+	if (!recvall(t_id, buffer, bufferlength)) //receive message and store the message in buffer array. If buffer fails to be received...
+	{
+		delete[] buffer; //delete buffer to prevent memory leak
+		return false; //return false: Fails to receive string buffer
+	}
+	_v = buffer; //set string to received buffer message
+	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
+	return true;//Return true if we were successful in retrieving the string
+}
+
 bool Server::SendPacketType(int ID, Packet _packettype)
 {
 	if (!sendall(ID, (char*)&_packettype, sizeof(Packet))) //Try to send packet type... If packet type fails to send

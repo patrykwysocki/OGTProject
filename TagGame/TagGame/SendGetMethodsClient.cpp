@@ -68,6 +68,35 @@ bool Client::getPlayerVector(std::string& t_vectorString)
 	return true;//Return true if we were successful in retrieving the string
 }
 
+bool Client::SendPlayerCollision(std::string& t_vectorString)
+{
+	if (!SendPacketType(P_Collision))
+		return false;
+	int bufferlength = t_vectorString.size(); //Find string buffer length
+	if (!SendInt(bufferlength)) //Send length of string buffer, If sending buffer length fails...
+		return false; //Return false: Failed to send string buffer length
+	if (!sendall((char*)t_vectorString.c_str(), bufferlength)) //Try to send string buffer... If buffer fails to send,
+		return false; //Return false: Failed to send string buffer
+	return true; //Return true: string successfully sent
+}
+
+bool Client::getPlayerCollision(std::string& t_vectorString)
+{
+	int bufferlength; //Holds length of the message
+	if (!GetInt(bufferlength)) //Get length of buffer and store it in variable: bufferlength
+		return false; //If get int fails, return false
+	char* buffer = new char[bufferlength + 1]; //Allocate buffer
+	buffer[bufferlength] = '\0'; //Set last character of buffer to be a null terminator so we aren't printing memory that we shouldn't be looking at
+	if (!recvall(buffer, bufferlength)) //receive message and store the message in buffer array. If buffer fails to be received...
+	{
+		delete[] buffer; //delete buffer to prevent memory leak
+		return false; //return false: Fails to receive string buffer
+	}
+	t_vectorString = buffer; //set string to received buffer message
+	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
+	return true;//Return true if we were successful in retrieving the string
+}
+
 bool Client::SendPacketType(Packet _packettype)
 {
 	if (!sendall((char*)&_packettype, sizeof(Packet))) //Try to send packet type... If packet type fails to send

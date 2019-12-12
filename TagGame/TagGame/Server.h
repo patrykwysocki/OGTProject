@@ -33,6 +33,9 @@ private:
 
 	bool SendPlayerVector(int t_id, std::string& _v);
 	bool GetPlayerVector(int t_id, std::string& _v);
+
+	bool SendPlayerCollision(int t_id, std::string& _v);
+	bool GetPlayerCollision(int t_id, std::string& _v);
 private:
 	SOCKET Connections[100];
 	int TotalConnections = 0;

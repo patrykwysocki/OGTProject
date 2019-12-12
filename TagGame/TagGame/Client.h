@@ -19,6 +19,8 @@ public: //Public functions
 	bool CloseConnection();
 	bool SendPlayerVector(std::string& t_vectorString);
 	bool getPlayerVector(std::string& t_vectorString);
+	bool SendPlayerCollision(std::string& t_vectorString);
+	bool getPlayerCollision(std::string& t_vectorString);
 	Vector2D getEnemy();
 	int getPlayerId();
 private: //Private functions

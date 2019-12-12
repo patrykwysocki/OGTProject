@@ -151,7 +151,8 @@ void Game::update(float dt)
 	m_player2.setPosition(m_client->getEnemy());
 	if (m_player.getIschaser() && m_player.checkCollision(m_player2.getPosition(), m_player2.getRadius()))
 	{
-		std::cout << "collision" << std::endl;
+		std::string collision = "true";
+		m_client->SendPlayerCollision(collision);
 	}
 }
 
